@@ -1,0 +1,6 @@
+1001,The Shawshank Redemption,1994,[Morgan Freeman ; Tim Robbins],142
+1002,The Godfather,1972,[Marlon Brando ; Al Pacino],175
+1003,Inception,2010,[Leonardo DiCaprio ; Joseph Gordon-Levitt],148
+1004,Hotel Transylvania,2012,[Adam Sandler;  Kevin James ; Andy Samberg],91
+1005,Corpse Bride,2005,[ Johnny Depp ; Helena Bonham Carter ; Emily Watson ; Tracey Ullman],77
+1006,The Land Before Time ,1988 ,[Pat Hingle ; Gabriel Damon ; Helen Shaver ; Bill Erwin],69
