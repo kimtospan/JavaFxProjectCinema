@@ -5,7 +5,7 @@ public class Hall {
     private String description;
     private int rows;
     private int columns;
-    //a 2d array to represent every seat in a movie hall
+    // a 2d array to represent every seat in a movie hall
     private Seat[][] seats;
 
     public Hall(String hallId, String description, int rows, int columns, Seat[][] seats) {
@@ -14,16 +14,16 @@ public class Hall {
         this.rows = rows;
         this.columns = columns;
         this.seats = new Seat[rows][columns];
-       //when creating a hall, every seat is not reserved by default
+        // when creating a hall, every seat is not reserved by default
         for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns ; j++) {
+            for (int j = 0; j < columns; j++) {
                 seats[i][j] = new Seat(i, j, false);
             }
         }
 
     }
 
-    // Getters and setters
+    // Get em and send em
 
     public String getHallId() {
         return hallId;
@@ -56,5 +56,5 @@ public class Hall {
     public void setColumns(int columns) {
         this.columns = columns;
     }
-    
+
 }

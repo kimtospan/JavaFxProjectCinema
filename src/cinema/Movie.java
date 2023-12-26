@@ -1,10 +1,11 @@
 package cinema;
+
 //The actors will be a list of strings, because a movie can have multiple actors.
 public class Movie {
     private String uniqueId;
     private String title;
     private String productionDate;
-    private String[] actors; //make actors a list of strings
+    private String[] actors; // make actors an array of strings
     private int length;
 
     // Constructor
@@ -16,7 +17,7 @@ public class Movie {
         this.length = length;
     }
 
-    // Getters and Setters
+    // getters and setters
     public String getUniqueId() {
         return uniqueId;
     }
@@ -57,4 +58,3 @@ public class Movie {
         this.length = length;
     }
 }
-
