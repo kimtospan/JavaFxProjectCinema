@@ -71,4 +71,57 @@ public class App extends Application {
 
     }
 
-}
+    public void issueTicket() {
+        // Ask the user for the hall ID, row, and column of the seat they want to reserve
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the hall ID:");
+        int hallId = scanner.nextInt();
+        System.out.println("Enter the row number:");
+        int row = scanner.nextInt();
+        System.out.println("Enter the column number:");
+        int column = scanner.nextInt();
+
+        // Check if the seat is available
+        boolean seatAvailable = checkSeatAvailability(hallId, row, column);
+
+        // If the seat is available, reserve it and print a ticket
+        if (seatAvailable) {
+            reserveSeat(hallId, row, column);
+            printTicket(hallId, row, column);
+        } else {
+            // If the seat is not available, print an error message
+            System.out.println("The seat is not available.");
+        }
+    }
+
+    private boolean checkSeatAvailability(int hallId, int row, int column) {
+        // Implement the logic to check if the seat is available in the specified hall
+        // Return true if the seat is available, false otherwise
+        // You can use the information from the List<Hall> halls to check the seat availability
+        // You may need to modify the Hall class to include a data structure to store the seat availability
+        // Example implementation:
+        // Hall hall = getHallById(hallId);
+        // return hall.isSeatAvailable(row, column);
+        return false; // Placeholder
+    }
+
+    private void reserveSeat(int hallId, int row, int column) {
+        // Implement the logic to reserve the seat in the specified hall
+        // You can use the information from the List<Hall> halls to reserve the seat
+        // You may need to modify the Hall class to update the seat availability after reserving the seat
+        // Example implementation:
+        // Hall hall = getHallById(hallId);
+        // hall.reserveSeat(row, column);
+    }
+
+    private void printTicket(int hallId, int row, int column) {
+        // Implement the logic to print the ticket for the reserved seat
+        // You can use the information from the List<Hall> halls to get the hall details
+        // Example implementation:
+        // Hall hall = getHallById(hallId);
+        // Movie movie = getMovieByHallId(hallId);
+        // System.out.println("Ticket Details:");
+        // System.out.println("Movie: " + movie.getTitle());
+        // System.out.println("Hall: " + hall.getDescription());
+        // System.out.println("Seat: Row " + row + ", Column " + column);
+    }

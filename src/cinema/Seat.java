@@ -1,5 +1,8 @@
 package cinema;
 
+//create a seat object so later we can create a 2d array to represent every seat in a hall. 
+
+//a seat object has a row and a column to place it in space, and a boolean isReserved for availability
 public class Seat {
     private int row;
     private int column;

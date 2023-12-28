@@ -1,5 +1,5 @@
 package cinema;
 
-public class Event {
-    
+public abstract class Event {
+    private String 
 }

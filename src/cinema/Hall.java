@@ -1,11 +1,12 @@
 package cinema;
 
+
 public class Hall {
     private String hallId;
     private String description;
     private int rows;
     private int columns;
-    // a 2d array to represent every seat in a movie hall
+    // a 2d array of seat objects to represent every seat in a movie hall
     private Seat[][] seats;
 
     public Hall(String hallId, String description, int rows, int columns, Seat[][] seats) {
@@ -17,7 +18,7 @@ public class Hall {
         // when creating a hall, every seat is not reserved by default
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                seats[i][j] = new Seat(i, j, false);
+                this.seats[i][j] = new Seat(i, j, false);
             }
         }
 
