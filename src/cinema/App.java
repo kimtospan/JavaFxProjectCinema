@@ -18,18 +18,18 @@ public class App extends Application {
 
     // @Override
     public void start(Stage primaryStage) throws Exception {
-        // Parent root = FXMLLoader.load(getClass().getResource("hellofx.fxml"));
-        /*
-         * primaryStage.setTitle("Cinema Management System");
-         * Group root = new Group();
-         * Scene scene = new Scene(root, 300, 250,Color.AQUA);
-         * primaryStage.setScene(scene);
-         * primaryStage.show();
-         */
+         Parent root = FXMLLoader.load(getClass().getResource("hellofx.fxml"));
+        
+          primaryStage.setTitle("Cinema Management System");
+          
+          Scene scene = new Scene(root, 300, 250,Color.AQUA);
+          primaryStage.setScene(scene);
+          primaryStage.show();
+         
     }
 
     public static void main(String[] args) {
-        // launch(args);
+        launch(args);
         System.out.println("Welcome to the Cinema Management System!");
         System.out.println("Please select an option:");
         System.out.println("1. List movies");
