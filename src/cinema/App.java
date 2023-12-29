@@ -125,3 +125,4 @@ public class App extends Application {
         // System.out.println("Hall: " + hall.getDescription());
         // System.out.println("Seat: Row " + row + ", Column " + column);
     }
+}
