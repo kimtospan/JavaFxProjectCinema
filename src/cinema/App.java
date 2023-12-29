@@ -32,6 +32,7 @@ public class App extends Application {
         launch(args);
         System.out.println("Welcome to the Cinema Management System!");
         System.out.println("The greatest cinema management system ever created.");
+        System.out.println("mia paparia");
         System.out.println("Please select an option:");
         System.out.println("1. List movies");
         System.out.println("2. List halls");
