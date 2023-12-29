@@ -31,6 +31,7 @@ public class App extends Application {
     public static void main(String[] args) {
         launch(args);
         System.out.println("Welcome to the Cinema Management System!");
+        System.out.println("The greatest cinema management system ever created.");
         System.out.println("Please select an option:");
         System.out.println("1. List movies");
         System.out.println("2. List halls");
