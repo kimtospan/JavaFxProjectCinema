@@ -13,11 +13,25 @@ import javafx.stage.Stage;
 
 import cinema.MovieFileReader;
 import cinema.Movie;
+import cinema.HallFileReader;
+import cinema.Hall;
 
 public class App extends Application {
+    public static List<Hall> halls;
+    public static List<Movie> movies;
 
     // @Override
     public void start(Stage primaryStage) throws Exception {
+        //When application starts, load hall data from file and store it in a list
+        //So we can implement a seat reservation system after 
+        HallFileReader hallFileReader = new HallFileReader();
+        halls = hallFileReader.ReadHallsFromLine("src\\cinema\\Halls.txt");
+
+        //The same for movie 
+        MovieFileReader movieFileReader = new MovieFileReader();
+        movies = movieFileReader.readMoviesFromFile("src\\cinema\\Movies.txt");
+
+
          Parent root = FXMLLoader.load(getClass().getResource("hellofx.fxml"));
         
           primaryStage.setTitle("Cinema Management System");
@@ -27,49 +41,69 @@ public class App extends Application {
           primaryStage.show();
          
     }
+    public static void printMovies() {
+        for (Movie movie : movies) {
+            System.out.println(movie.getTitle());
+        }
+    }
+    public static void printHalls() {
+        for (Hall hall : halls) {
+            System.out.print(hall.getHallId() + " " + hall.getDescription() + " ");
+            System.out.println();
+        }
+
+    }
 
     public static void main(String[] args) {
         launch(args);
+
+       
+
         System.out.println("Welcome to the Cinema Management System!");
         System.out.println("The greatest cinema management system ever created.");
-        System.out.println("mia paparia");
+        int choice = 1;
+        
+        do{
         System.out.println("Please select an option:");
         System.out.println("1. List movies");
         System.out.println("2. List halls");
-        System.out.println("3. Exit");
-        int choice;
+        System.out.println("3. Issue ticket");
+        System.out.println("4. Exit");
+       
 
-        MovieFileReader movieFileReader = new MovieFileReader();
-        List<Movie> movies = movieFileReader.readMoviesFromFile("src\\cinema\\Movies.txt");
-        HallFileReader hallFileReader = new HallFileReader();
-        List<Hall> halls = hallFileReader.ReadHallsFromLine("src\\cinema\\Halls.txt");
+       
+        
         try (Scanner scanner = new Scanner(System.in)) {
+           
             choice = scanner.nextInt();
             switch (choice) {
                 case 1:
                     System.out.println("You selected option 1");
-                    for (Movie movie : movies) {
-                        System.out.println(movie.getTitle());
-                    }
+                    printMovies();
+                   
                     break;
                 case 2:
                     System.out.println("You selected option 2");
-                    for (Hall hall : halls) {
-                        System.out.print(hall.getHallId() + " " + hall.getDescription() + " ");
-                        System.out.println();
-                    }
+                    printHalls();
                     break;
                 case 3:
                     System.out.println("You selected option 3");
+                    //This will issue a ticket and occupy a seat
+                    break;
+                case 4:
+                    System.out.println("You selected option 4");
 
                     // Close application
                     System.exit(0);
                     break;
+                
                 default:
                     System.out.println("Invalid option");
                     break;
-            }
+            
         }
+        }
+    }while(choice != 4);
 
     }
 

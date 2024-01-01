@@ -24,6 +24,21 @@ public class Hall {
 
     }
 
+    public void reserveSeat(int hallId, int row, int column) {
+        seats[row][column].setReserved(true);
+
+    }
+
+    public boolean checkSeatAvailability(int hallId, int row, int column) {
+        if (seats[row][column].isReserved() == false) {
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+
+
     // Get em and send em
 
     public String getHallId() {

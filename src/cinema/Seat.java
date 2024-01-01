@@ -15,7 +15,6 @@ public class Seat {
     }
 
     // Getters and setters
-
     public int getRow() {
         return row;
     }
