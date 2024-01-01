@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 
-public class MainSceneCreator extends SceneCreator implements EventHandler<MouseEvent>{
+/*public class MainSceneCreator extends SceneCreator implements EventHandler<MouseEvent>{
     
     
     public MainSceneCreator(double width, double height) {
@@ -23,3 +23,4 @@ public class MainSceneCreator extends SceneCreator implements EventHandler<Mouse
         
     }
 }
+*/

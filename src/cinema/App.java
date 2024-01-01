@@ -4,10 +4,15 @@ import java.util.List;
 import java.util.Scanner;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -32,80 +37,98 @@ public class App extends Application {
         movies = movieFileReader.readMoviesFromFile("src\\cinema\\Movies.txt");
 
 
-         Parent root = FXMLLoader.load(getClass().getResource("hellofx.fxml"));
+        
         
           primaryStage.setTitle("Cinema Management System");
+          Button btn = new Button();
+            btn.setText("Say 'Hello World'");
+            btn.setOnAction(new EventHandler<ActionEvent>() {
+         
+                @Override
+                public void handle(ActionEvent event) {
+                    System.out.println("Hello World!");
+                }
+            });
+
+            Label welcomeLabel = new Label("Welcome to the Cinema Management System!");
+            Button listMoviesButton = new Button("List movies");
+            Button listHallsButton = new Button("List halls");
+            Button bookScreeningButton = new Button("Create a Screening event");
+            Button bookPartyButton = new Button("Create a Party event");
+
+            listMoviesButton.setOnAction(event -> listMovies());
+            listHallsButton.setOnAction(event -> listHalls());
+            //bookScreeningButton.setOnAction(event -> bookScreening());
+            //bookPartyButton.setOnAction(event -> bookParty());
+
+            VBox layout = new VBox(10);
+            layout.getChildren().addAll(welcomeLabel, listMoviesButton, listHallsButton, bookScreeningButton, bookPartyButton);
+            //Create the scene
           
-          Scene scene = new Scene(root, 300, 250,Color.AQUA);
-          primaryStage.setScene(scene);
-          primaryStage.show();
+        
+        
+        Scene scene = new Scene(layout, 300, 250); 
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        
          
     }
-    public static void printMovies() {
-        for (Movie movie : movies) {
-            System.out.println(movie.getTitle());
-        }
-    }
-    public static void printHalls() {
-        for (Hall hall : halls) {
-            System.out.print(hall.getHallId() + " " + hall.getDescription() + " ");
-            System.out.println();
-        }
 
+
+    public void listMovies() {
+        // Create a new Stage for the movie list
+        Stage movieStage = new Stage();
+        movieStage.setTitle("List of Movies");
+    
+        // Create a VBox layout for the movie list
+        VBox layout = new VBox(10);
+    
+        // Use the MovieFileReader to read the list of movies
+        MovieFileReader movieFileReader = new MovieFileReader();
+        List<Movie> movies = movieFileReader.readMoviesFromFile("src/cinema/Movies.txt");
+    
+        // Create a Label for each movie and add it to the layout
+        for (Movie movie : movies) {
+            Label movieLabel = new Label(movie.getTitle());
+            layout.getChildren().add(movieLabel);
+        }
+    
+        // Create the scene with the layout and set it on the stage
+        Scene scene = new Scene(layout, 300, 250);
+        movieStage.setScene(scene);
+        movieStage.show();
+    }
+
+    public void listHalls() {
+        // Create a new Stage for the hall list
+        Stage hallStage = new Stage();
+        hallStage.setTitle("List of Halls");
+    
+        // Create a VBox layout for the hall list
+        VBox layout = new VBox(10);
+    
+        // Use the HallFileReader to read the list of halls
+        HallFileReader hallFileReader = new HallFileReader();
+        List<Hall> halls = hallFileReader.ReadHallsFromLine("src/cinema/Halls.txt");
+    
+        // Create a Label for each hall and add it to the layout
+        for (Hall hall : halls) {
+            Label hallLabel = new Label(hall.getHallId() + " " + hall.getDescription());
+            layout.getChildren().add(hallLabel);
+        }
+    
+        // Create the scene with the layout and set it on the stage
+        Scene scene = new Scene(layout, 300, 250);
+        hallStage.setScene(scene);
+        hallStage.show();
     }
 
     public static void main(String[] args) {
         launch(args);
 
-       
-
-        System.out.println("Welcome to the Cinema Management System!");
-        System.out.println("The greatest cinema management system ever created.");
-        int choice = 1;
-        
-        do{
-        System.out.println("Please select an option:");
-        System.out.println("1. List movies");
-        System.out.println("2. List halls");
-        System.out.println("3. Issue ticket");
-        System.out.println("4. Exit");
-       
-
-       
-        
-        try (Scanner scanner = new Scanner(System.in)) {
-           
-            choice = scanner.nextInt();
-            switch (choice) {
-                case 1:
-                    System.out.println("You selected option 1");
-                    printMovies();
-                   
-                    break;
-                case 2:
-                    System.out.println("You selected option 2");
-                    printHalls();
-                    break;
-                case 3:
-                    System.out.println("You selected option 3");
-                    //This will issue a ticket and occupy a seat
-                    break;
-                case 4:
-                    System.out.println("You selected option 4");
-
-                    // Close application
-                    System.exit(0);
-                    break;
-                
-                default:
-                    System.out.println("Invalid option");
-                    break;
-            
-        }
-        }
-    }while(choice != 4);
-
     }
+
+      
 
     public void issueTicket() {
         // Ask the user for the hall ID, row, and column of the seat they want to reserve
