@@ -67,7 +67,7 @@ public class App extends Application {
           
         
         
-        Scene scene = new Scene(layout, 300, 250); 
+        Scene scene = new Scene(layout, 500, 375); 
         primaryStage.setScene(scene);
         primaryStage.show();
         
