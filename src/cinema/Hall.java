@@ -73,4 +73,8 @@ public class Hall {
         this.columns = columns;
     }
 
+    public Seat getSeat(int row, int column) {
+        return seats[row][column];
+    }
+
 }
