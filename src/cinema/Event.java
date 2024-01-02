@@ -7,7 +7,7 @@ public abstract class Event {
     protected String type;
     protected String movieUniqueId;
     
-}
+
 
 public String getMovieUniqueId() {
     return movieUniqueId;
@@ -15,4 +15,5 @@ public String getMovieUniqueId() {
 
 public void setMovieUniqueId(String movieUniqueId) {
     this.movieUniqueId = movieUniqueId;
+}
 }
