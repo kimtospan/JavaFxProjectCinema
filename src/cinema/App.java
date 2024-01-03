@@ -30,11 +30,11 @@ public class App extends Application {
         //When application starts, load hall data from file and store it in a list
         //So we can implement a seat reservation system after 
         HallFileReader hallFileReader = new HallFileReader();
-        halls = hallFileReader.ReadHallsFromLine("src\\cinema\\Halls.txt");
+        halls = hallFileReader.ReadHallsFromLine("src/cinema/Halls.txt");
 
         //The same for movie 
         MovieFileReader movieFileReader = new MovieFileReader();
-        movies = movieFileReader.readMoviesFromFile("src\\cinema\\Movies.txt");
+        movies = movieFileReader.readMoviesFromFile("src/cinema/Movies.txt");
 
 
         
