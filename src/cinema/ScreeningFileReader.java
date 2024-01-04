@@ -9,11 +9,14 @@ import java.util.List;
 public class ScreeningFileReader {
     private static final String DELIMITER = ",";
 
+    
+    
     public List<Screening> readScreenings(String screeningsFilePath, String seatStatesFilePath) throws IOException {
         List<Screening> screenings = new ArrayList<>();
 
         try (BufferedReader screeningsReader = new BufferedReader(new FileReader(screeningsFilePath));
-             BufferedReader seatStatesReader = new BufferedReader(new FileReader(seatStatesFilePath))) {
+             BufferedReader seatStatesReader = new BufferedReader(new FileReader(seatStatesFilePath)))
+              {
 
             String screeningsLine;
             String seatStatesLine;
@@ -34,7 +37,9 @@ public class ScreeningFileReader {
                 if (seatStatesData.length > 1) {
                     String[] seatsData = seatStatesData[1].substring(1, seatStatesData[1].length() - 1).split("\\)\\(");
                     for (String seatData : seatsData) {
-                        String[] seatComponents = seatData.split(DELIMITER);
+                        String seatDataWithoutParentheses = seatData.replace("(", "").replace(")", "");
+                        String[] seatComponents = seatDataWithoutParentheses.split(DELIMITER);
+                        if (seatComponents.length == 2){
                         try {
                             int row = Integer.parseInt(seatComponents[0]);
                             int column = Integer.parseInt(seatComponents[1]);
@@ -44,6 +49,10 @@ public class ScreeningFileReader {
                             System.out.println("Invalid format for seat data: " + seatData);
                             // handle error
                         }
+                    } else {
+                        System.out.println("Invalid format for seat data: " + seatData);
+                    
+                    }
                     }
                 }
 
