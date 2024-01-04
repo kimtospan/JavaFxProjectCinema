@@ -1,5 +1,6 @@
 package cinema;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -36,6 +37,8 @@ public class App extends Application {
         MovieFileReader movieFileReader = new MovieFileReader();
         movies = movieFileReader.readMoviesFromFile("src/cinema/Movies.txt");
 
+       
+
 
         
         
@@ -53,16 +56,16 @@ public class App extends Application {
             Label welcomeLabel = new Label("Welcome to the Cinema Management System!");
             Button listMoviesButton = new Button("List movies");
             Button listHallsButton = new Button("List halls");
-            Button bookScreeningButton = new Button("Show Planned Screenings");
+            Button listPlannedScreeningsButton = new Button("List Planned Screenings");
             Button bookPartyButton = new Button("Create a Party event");
 
             listMoviesButton.setOnAction(event -> listMovies());
             listHallsButton.setOnAction(event -> listHalls());
-            //bookScreeningButton.setOnAction(event -> bookScreening());
+            listPlannedScreeningsButton.setOnAction(event -> listPlannedScreenings());
             //bookPartyButton.setOnAction(event -> bookParty());
 
             VBox layout = new VBox(10);
-            layout.getChildren().addAll(welcomeLabel, listMoviesButton, listHallsButton, bookScreeningButton, bookPartyButton);
+            layout.getChildren().addAll(welcomeLabel, listMoviesButton, listHallsButton, listPlannedScreeningsButton, bookPartyButton);
             //Create the scene
           
         
@@ -184,4 +187,42 @@ public class App extends Application {
         // System.out.println("Hall: " + hall.getDescription());
         // System.out.println("Seat: Row " + row + ", Column " + column);
     }
+
+
+    private void listPlannedScreenings() {
+        // This function's purpose is to execute the functions that read the text files relating to a screening, create the objects, and list them
+        ScreeningFileReader screeningFileReader = new ScreeningFileReader();
+        // Create a new Stage for the hall list
+        Stage plannedScreeningsStage = new Stage();
+        plannedScreeningsStage.setTitle("List of Planned Screenings");
+        try {
+            List<Screening> screenings = screeningFileReader.readScreenings("src/cinema/Screening.txt", "src/cinema/SeatStatesScreening.txt");
+            
+            // Create a VBox layout for the planned screening list
+            VBox layout = new VBox(10);
+            for (Screening screening : screenings) {
+                Label screeningLabel = new Label(screening.getEventId() + " " + screening.getMovieId() + " " + screening.getHallId() + " " + screening.getDate() + " " + screening.getTimeOfScreening() + " " + screening.getFullSeats() + " " + screening.getReservedSeatsNumber());
+                layout.getChildren().add(screeningLabel);
+            }
+
+            // Create the scene with the layout and set it on the stage
+        Scene scene = new Scene(layout, 400, 350);
+        plannedScreeningsStage.setScene(scene);
+        plannedScreeningsStage.show();
+
+
+        } catch (IOException e) {
+            System.out.println("Error reading file" + e.getMessage());
+        }
+    }
+
+
+
+
+
+
+
+
+
+
 }
