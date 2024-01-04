@@ -2,6 +2,7 @@ package cinema;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -16,7 +17,7 @@ public class ScreeningFileReader {
     //that will hold only 2 things, the eventId and a every seat that is reserved. (like s1, [(1,2)(4,3)])
     //Then we will read the SeatStateScreening.txt and create the 2d array, and every seat found in the file
     //will turn from isReserved = false to isReserved = true.
-    //The help i resieved was the Pattern and Matcher classes
+    //The help i received was the Pattern and Matcher classes
 
     private static Seat[][] parseSeats(String seatsString) {
         List<Seat[]> seatsList = new ArrayList<>();
@@ -29,6 +30,23 @@ public class ScreeningFileReader {
             seatsList.add(new Seat[]{new Seat(row, column, true)});
         }
         return seatsList.toArray(new Seat[0][0]);
+    }
+
+    public void readSeatStatesFromFile(String filePath, Screening screening) {
+        try {
+            File file = new File(filePath);
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split(",");
+                String eventId = parts[0];
+                Seat[][] seats = parseSeats(parts[1]); // assuming the seats are the second part of the line
+                screening.addReservedSeats(eventId, Arrays.asList(seats));
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + filePath);
+        }
     }
 
     public static List<Screening> readScreeningsFromFile(String filePath) {
