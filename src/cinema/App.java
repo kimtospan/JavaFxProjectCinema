@@ -53,7 +53,7 @@ public class App extends Application {
             }
         });
 
-        Label welcomeLabel = new Label("Welcome to the Cinema Management System!");
+        Label welcomeLabel = new Label("        Welcome to the Cinema Management System!");
         Button listMoviesButton = new Button("List movies");
         Button listHallsButton = new Button("List halls");
         Button listPlannedScreeningsButton = new Button("List Planned Screenings");
