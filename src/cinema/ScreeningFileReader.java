@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ScreeningFileReader {
@@ -38,7 +39,7 @@ public class ScreeningFileReader {
                     String[] seatsData = seatStatesData[1].substring(1, seatStatesData[1].length() - 1).split("\\)\\(");
                     for (String seatData : seatsData) {
                         String seatDataWithoutParentheses = seatData.replace("(", "").replace(")", "");
-                        String[] seatComponents = seatDataWithoutParentheses.split(DELIMITER);
+                        String[] seatComponents = seatDataWithoutParentheses.split("\\.");
                         if (seatComponents.length == 2){
                         try {
                             int row = Integer.parseInt(seatComponents[0]);
@@ -51,7 +52,9 @@ public class ScreeningFileReader {
                         }
                     } else {
                         System.out.println("Invalid format for seat data: " + seatData);
-                    
+                        System.out.println(Arrays.toString(seatComponents));
+                        System.out.println("seatStatesData[1]: " + seatStatesData[1]);
+                        System.out.println(Arrays.toString(seatsData));
                     }
                     }
                 }
