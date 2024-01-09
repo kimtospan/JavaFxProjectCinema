@@ -261,6 +261,7 @@ public class App extends Application {
             for (int i = 0; i < 10; i++) {
                 for (int j = 0; j < 10; j++) {
                     Button seatButton = new Button();
+                    //use contains to check if the seat the user wants is reserved or not
                     if (reservedSeats.contains(new Seat(i, j, true))) {
                         seatButton.setStyle("-fx-background-color: red;"); // Reserved seat
                     } else {
@@ -269,9 +270,10 @@ public class App extends Application {
                     grid.add(seatButton, j, i);
                 }
             }
-            Scene scene = new Scene(grid);
+            
 
             // Show the new scene
+            Scene scene = new Scene(grid);
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.show();
