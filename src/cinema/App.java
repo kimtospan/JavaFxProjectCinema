@@ -60,7 +60,7 @@ public class App extends Application {
         // bookPartyButton.setOnAction(event -> bookParty());
         CheckEventSeatsButton.setOnAction(event -> checkEventSeats());
         listPartiesButton.setOnAction(event -> listParties());
-        //CreatePartyButton.setOnAction(event -> CreateParty());
+        //CreatePartyButton.setOnAction(event -> createParty());
 
         VBox layout = new VBox(10);
         layout.getChildren().addAll(welcomeLabel, listMoviesButton, listHallsButton, listPlannedScreeningsButton,
@@ -318,5 +318,10 @@ public class App extends Application {
         } catch (IOException e) {
             System.out.println("Error reading file" + e.getMessage());
         }
+    }
+
+    private void createParty(){
+
+        
     }
 }
