@@ -8,9 +8,10 @@ import java.io.IOException;
 //Class to read the movies from the file movies.txt
 
 public class MovieFileReader {
+    private List<Movie> movies = new ArrayList<>();
 
     public List<Movie> readMoviesFromFile(String filePath) {
-        List<Movie> movies = new ArrayList<>();
+       movies.clear();
         
         //It opens the file at the given path.
         //It reads the file line by line.
@@ -46,5 +47,15 @@ public class MovieFileReader {
         
 
         return movies;
+    }
+
+    //getters and setters
+    public String getTitleFromId(String id){
+        for (Movie movie : movies) {
+            if (movie.getUniqueId().equals(id)) {
+                return movie.getTitle();
+            }
+        }
+        return null;
     }
 }

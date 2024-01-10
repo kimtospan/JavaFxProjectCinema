@@ -55,12 +55,8 @@ public class App extends Application {
        
         
 
-        Scene scene = new Scene(layout, 500, 375);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-
     }
-/* 
+
     public void listMovies() {
         // Create a new Stage for the movie list
         Stage movieStage = new Stage();
