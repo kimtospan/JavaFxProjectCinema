@@ -4,9 +4,9 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 
-public class EventSceneCreator extends SceneCreator implements EventHandler<MouseEvent>{
+public class ScreeningSceneCreator extends SceneCreator implements EventHandler<MouseEvent>{
 
-    public EventSceneCreator(double width, double height) {
+    public ScreeningSceneCreator(double width, double height) {
         super(width, height);
     }
 
@@ -16,6 +16,7 @@ public class EventSceneCreator extends SceneCreator implements EventHandler<Mous
         }
         public void handle(MouseEvent event) {
 
-        
+        }
     
+
 }

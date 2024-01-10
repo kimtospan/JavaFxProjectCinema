@@ -28,51 +28,39 @@ import cinema.Hall;
 import cinema.ScreeningFileReader;
 
 public class App extends Application {
-    public static List<Hall> halls;
-    public static List<Movie> movies;
-
+    static Stage primaryStage;
+    static Scene mainScene;
+    static Scene ScreeningScene;
+    static Scene PartyScene;
     // @Override
     public void start(Stage primaryStage) throws Exception {
-        // When application starts, load hall data from file and store it in a list
-        // So we can implement a seat reservation system after
-        HallFileReader hallFileReader = new HallFileReader();
-        halls = hallFileReader.ReadHallsFromLine("src/cinema/Halls.txt");
+        this.primaryStage = primaryStage;
 
-        // The same for movie
-        MovieFileReader movieFileReader = new MovieFileReader();
-        movies = movieFileReader.readMoviesFromFile("src/cinema/Movies.txt");
+       
+        SceneCreator mainSceneCreator = new MainSceneCreator(650, 300);
+        mainScene = mainSceneCreator.createScene();
+
+        SceneCreator ScreeningSceneCreator = new ScreeningSceneCreator(650, 300); 
+        ScreeningScene = ScreeningScene.createScene();
+       
+        SceneCreator PartySceneCreator = new PartySceneCreator(650, 300);
+        PartyScene = PartyScene.createScene();
 
         primaryStage.setTitle("Cinema Management System");
         
 
         Label welcomeLabel = new Label("        Welcome to the Cinema Management System!");
-        Button listMoviesButton = new Button("List movies");
-        Button listHallsButton = new Button("List halls");
-        Button listPlannedScreeningsButton = new Button("List Planned Screenings");
-        Button bookPartyButton = new Button("Create a Party event");
-        Button CheckEventSeatsButton = new Button("Check Event Seats");
-        Button listPartiesButton = new Button("List Parties");
-        Button CreatePartyButton = new Button("Create Party");
+        
 
-        listMoviesButton.setOnAction(event -> listMovies());
-        listHallsButton.setOnAction(event -> listHalls());
-        listPlannedScreeningsButton.setOnAction(event -> listPlannedScreenings());
-        // bookPartyButton.setOnAction(event -> bookParty());
-        CheckEventSeatsButton.setOnAction(event -> checkEventSeats());
-        listPartiesButton.setOnAction(event -> listParties());
-        //CreatePartyButton.setOnAction(event -> createParty());
-
-        VBox layout = new VBox(10);
-        layout.getChildren().addAll(welcomeLabel, listMoviesButton, listHallsButton, listPlannedScreeningsButton,
-                bookPartyButton, CheckEventSeatsButton, listPartiesButton, CreatePartyButton);
-        // Create the scene
+       
+        
 
         Scene scene = new Scene(layout, 500, 375);
         primaryStage.setScene(scene);
         primaryStage.show();
 
     }
-
+/* 
     public void listMovies() {
         // Create a new Stage for the movie list
         Stage movieStage = new Stage();
@@ -320,8 +308,6 @@ public class App extends Application {
         }
     }
 
-    private void createParty(){
-
-        
-    }
+    
+    
 }
