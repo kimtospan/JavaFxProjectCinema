@@ -43,15 +43,7 @@ public class App extends Application {
         movies = movieFileReader.readMoviesFromFile("src/cinema/Movies.txt");
 
         primaryStage.setTitle("Cinema Management System");
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
-            }
-        });
+        
 
         Label welcomeLabel = new Label("        Welcome to the Cinema Management System!");
         Button listMoviesButton = new Button("List movies");
@@ -59,16 +51,20 @@ public class App extends Application {
         Button listPlannedScreeningsButton = new Button("List Planned Screenings");
         Button bookPartyButton = new Button("Create a Party event");
         Button CheckEventSeatsButton = new Button("Check Event Seats");
+        Button listPartiesButton = new Button("List Parties");
+        Button CreatePartyButton = new Button("Create Party");
 
         listMoviesButton.setOnAction(event -> listMovies());
         listHallsButton.setOnAction(event -> listHalls());
         listPlannedScreeningsButton.setOnAction(event -> listPlannedScreenings());
         // bookPartyButton.setOnAction(event -> bookParty());
         CheckEventSeatsButton.setOnAction(event -> checkEventSeats());
+        listPartiesButton.setOnAction(event -> listParties());
+        //CreatePartyButton.setOnAction(event -> CreateParty());
 
         VBox layout = new VBox(10);
         layout.getChildren().addAll(welcomeLabel, listMoviesButton, listHallsButton, listPlannedScreeningsButton,
-                bookPartyButton, CheckEventSeatsButton);
+                bookPartyButton, CheckEventSeatsButton, listPartiesButton, CreatePartyButton);
         // Create the scene
 
         Scene scene = new Scene(layout, 500, 375);
@@ -292,4 +288,35 @@ public class App extends Application {
         return null;
     }
 
+
+
+    private void listParties() {
+        // This function's purpose is to execute the functions that read the text files
+        // relating to a party, create the objects, and list them
+        PartyFileReader partyFileReader = new PartyFileReader();
+        // Create a new Stage for the hall list
+        Stage partyStage = new Stage();
+        partyStage.setTitle("List of Parties");
+        try {
+            // List of party objexcts from the partyfilereader
+            List<Party> parties = partyFileReader.readParties("src/cinema/Party.txt");
+
+            // Create a VBox layout for the planned screening list
+            VBox layout = new VBox(10);
+            for (Party party : parties) {
+                Label partyLabel = new Label(party.getEventId() + " " + party.getDateOfParty() + " "
+                        + party.getTimeOfParty() + " " + party.getNumberOfPeople() + " " + party.getFoodChoice() + " "
+                        + party.hasCake() + " " + party.hasClown() + " " + party.hasAnimater());
+                layout.getChildren().add(partyLabel);
+            }
+
+            // Create the scene with the layout and set it on the stage
+            Scene scene = new Scene(layout, 400, 350);
+            partyStage.setScene(scene);
+            partyStage.show();
+
+        } catch (IOException e) {
+            System.out.println("Error reading file" + e.getMessage());
+        }
+    }
 }

@@ -1,5 +1,5 @@
 package cinema;
-
+// party class , to be used in creating objects anew and from the file reader
 public class Party extends Event{
     private String eventId;
     private String dateOfParty;
