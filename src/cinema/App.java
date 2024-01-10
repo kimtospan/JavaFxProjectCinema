@@ -32,24 +32,35 @@ public class App extends Application {
     static Scene mainScene;
     static Scene ScreeningScene;
     static Scene PartyScene;
-    // @Override
+    @Override
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
+
+        ScreeningFileReader screeningFileReader = new ScreeningFileReader();
+        List<Screening> screenings = screeningFileReader.readScreenings("src/cinema/Screening.txt", "src/cinema/SeatStatesScreening.txt");
+
+        PartyFileReader partyFileReader = new PartyFileReader();
+        List<Party> parties = partyFileReader.readParties("src/cinema/Party.txt");
+
+
 
        
         SceneCreator mainSceneCreator = new MainSceneCreator(650, 300);
         mainScene = mainSceneCreator.createScene();
 
         SceneCreator ScreeningSceneCreator = new ScreeningSceneCreator(650, 300); 
-        ScreeningScene = ScreeningScene.createScene();
+        ScreeningScene = ScreeningSceneCreator.createScene();
        
         SceneCreator PartySceneCreator = new PartySceneCreator(650, 300);
-        PartyScene = PartyScene.createScene();
+        PartyScene = PartySceneCreator.createScene();
 
         primaryStage.setTitle("Cinema Management System");
+        primaryStage.setScene(mainScene);
+        primaryStage.show();
+
         
 
-        Label welcomeLabel = new Label("        Welcome to the Cinema Management System!");
+        
         
 
        

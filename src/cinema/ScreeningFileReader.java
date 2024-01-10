@@ -31,8 +31,8 @@ public class ScreeningFileReader {
                 String hallId = screeningsData[2];
                 String date = screeningsData[3];
                 String timeOfScreening = screeningsData[4];
-                String fullSeats = screeningsData[5];
-                String reservedSeatsNumber = screeningsData[6];
+                byte fullSeats = Byte.parseByte(screeningsData[5]);
+                byte reservedSeatsNumber = Byte.parseByte(screeningsData[6]);
 
                 List<Seat> reservedSeats = new ArrayList<>();
                 if (seatStatesData.length > 1) {

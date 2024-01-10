@@ -15,14 +15,16 @@ public class Screening extends Event {
     private String hallId;
     private String date;   
     private String timeOfScreening;
-    private String fullSeats;
-    private String reservedSeatsNumber;
+    //byte since it will never surpass 100. byte is 127 max i am a memory god(if you ignore the 5 sources of memory leak in my code dont @ me)
+    private byte fullSeats;
+    private byte reservedSeatsNumber;
+    private byte availableSeats;
     private Map<String, List<Seat>> reservedSeatsMap;
 
 
     
     
-    public Screening(String eventId, String movieId, String hallId, String date, String timeOfScreening, String fullSeats, String reservedSeatsNumber, List<Seat> reservedSeats) {
+    public Screening(String eventId, String movieId, String hallId, String date, String timeOfScreening, byte fullSeats, byte reservedSeatsNumber, List<Seat> reservedSeats) {
         this.eventId = eventId;
         this.movieId = movieId;
         this.hallId = hallId;
@@ -34,15 +36,31 @@ public class Screening extends Event {
         if (eventId != null && reservedSeats != null) {
             this.reservedSeatsMap.put(eventId, new ArrayList<>(reservedSeats));
         }
+        availableSeats = (byte) (fullSeats - reservedSeatsNumber);
     }
 
     public void addReservedSeats(String eventId, List<Seat> list) {
         this.reservedSeatsMap.put(eventId, list);
     }
 
+    public void setAvailableSeats() {
+        this.availableSeats = (byte) (fullSeats - reservedSeatsNumber);
+    }
+    public byte getAvailableSeats() {
+        return availableSeats;
+    }
+    
+
+
     public List<Seat> getReservedSeats(String eventId) {
         return this.reservedSeatsMap.get(eventId);
     }
+    //this will use the id to activate the getTitleFromId method from the MovieFileReader class
+    public String getMovieTitleById(){
+        return MovieFileReader.getTitleFromId(movieId);
+    }
+
+    
 
     // Getter and Setter methods for eventId
     public String getEventId() {
@@ -90,20 +108,20 @@ public class Screening extends Event {
     }
 
     // Getter and Setter methods for fullSeats
-    public String getFullSeats() {
+    public byte getFullSeats() {
         return fullSeats;
     }
 
-    public void setFullSeats(String fullSeats) {
+    public void setFullSeats(byte fullSeats) {
         this.fullSeats = fullSeats;
     }
 
     // Getter and Setter methods for reservedSeatsNumber
-    public String getReservedSeatsNumber() {
+    public byte getReservedSeatsNumber() {
         return reservedSeatsNumber;
     }
 
-    public void setReservedSeatsNumber(String reservedSeatsNumber) {
+    public void setReservedSeatsNumber(byte reservedSeatsNumber) {
         this.reservedSeatsNumber = reservedSeatsNumber;
     }
 
