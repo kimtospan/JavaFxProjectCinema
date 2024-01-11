@@ -30,7 +30,7 @@ public class ScreeningFileReader {
                 byte fullSeats = Byte.parseByte(screeningsData[5]);
                 byte reservedSeatsNumber = Byte.parseByte(screeningsData[6]);
 
-                List<Seat> reservedSeats = readSeatStates(seatStatesLine);
+                List<Seat> reservedSeats = readSeatStates(seatStatesFilePath);
 
                 screenings.add(new Screening(eventId, movieTitle, hallId, date, timeOfScreening, fullSeats, reservedSeatsNumber, reservedSeats));
             }
@@ -42,27 +42,35 @@ public class ScreeningFileReader {
     //this method will read the seat states from the file and return a list of seats to use
     //in the seat states scene creator
 
-    public List<Seat> readSeatStates(String seatStatesLine) {
+    public List<Seat> readSeatStates(String seatStatesFilePath) {
         List<Seat> reservedSeats = new ArrayList<>();
-        String[] seatStatesData = seatStatesLine.split(DELIMITER);
-        if (seatStatesData.length > 1) {
-            String[] seatsData = seatStatesData[1].substring(1, seatStatesData[1].length() - 1).split("\\)\\(");
-            for (String seatData : seatsData) {
-                String seatDataWithoutParentheses = seatData.replace("(", "").replace(")", "");
-                String[] seatComponents = seatDataWithoutParentheses.split("\\.");
-                if (seatComponents.length == 2){
-                    try {
-                        int row = Integer.parseInt(seatComponents[0]);
-                        int column = Integer.parseInt(seatComponents[1]);
-                        reservedSeats.add(new Seat(row, column, true));
-                    } catch (NumberFormatException e) {
+    try (BufferedReader reader = new BufferedReader(new FileReader(seatStatesFilePath))) {
+        String seatStatesLine;
+        while ((seatStatesLine = reader.readLine()) != null) {
+            String[] seatStatesData = seatStatesLine.split(DELIMITER);
+            if (seatStatesData.length > 1 && seatStatesData[1].length() > 2) {
+                String[] seatsData = seatStatesData[1].substring(1, seatStatesData[1].length() - 1).split("\\)\\(");
+                for (String seatData : seatsData) {
+                    String seatDataWithoutParentheses = seatData.replace("(", "").replace(")", "");
+                    String[] seatComponents = seatDataWithoutParentheses.split("\\.");
+                    if (seatComponents.length == 2){
+                        try {
+                            int row = Integer.parseInt(seatComponents[0]);
+                            int column = Integer.parseInt(seatComponents[1]);
+                            reservedSeats.add(new Seat(row, column, true));
+                        } catch (NumberFormatException e) {
+                            System.out.println("Invalid format for seat data: " + seatData);
+                        }
+                    } else {
                         System.out.println("Invalid format for seat data: " + seatData);
                     }
-                } else {
-                    System.out.println("Invalid format for seat data: " + seatData);
                 }
             }
         }
-        return reservedSeats;
+    } catch (IOException e) {
+        System.out.println("An error occurred while reading the seat states file.");
+        e.printStackTrace();
+    }
+    return reservedSeats;
     }
 }

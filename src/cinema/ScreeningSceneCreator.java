@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -19,15 +20,21 @@ public class ScreeningSceneCreator extends SceneCreator implements EventHandler<
 
     ScreeningFileReader screeningFileReader = new ScreeningFileReader();
     List<Screening> screenings = null;
+
+    {
     try {
         screenings = screeningFileReader.readScreenings("src/cinema/Screening.txt", "src/cinema/SeatStatesScreening.txt");
     } catch (IOException e) {
         e.printStackTrace();
     }
-
+    }
     GridPane rootGridPane;
     Button backButton;
-    Button showSeatStatesButton;
+    Button showSeat;
+   
+    
+        
+    
     TableView<Screening> screeningTableView;
    
 
@@ -39,7 +46,7 @@ public class ScreeningSceneCreator extends SceneCreator implements EventHandler<
         this.rootGridPane = new GridPane();
         screeningTableView = new TableView<>();
         backButton = new Button("Back");
-        showSeatStatesButton = new Button("Show Seat States");
+        //showSeatStatesButton = new Button("Show Seat States");
 
 
         rootGridPane.setVgap(10);
@@ -48,9 +55,10 @@ public class ScreeningSceneCreator extends SceneCreator implements EventHandler<
         screeningTableView.setPrefSize(500, 600);
        
         rootGridPane.add(backButton, 0, 1);
+        //rootGridPane.add(showSeatStatesButton, 1, 1);
 
         backButton.setOnMouseClicked(this);
-        showSeatStatesButton.setOnMouseClicked(this);
+        //showSeatStatesButton.setOnMouseClicked(this);
     }
 
     @Override
@@ -69,6 +77,33 @@ public class ScreeningSceneCreator extends SceneCreator implements EventHandler<
         TableColumn<Screening, Integer> availableSeatsColumn = new TableColumn<>("Available Seats");
         availableSeatsColumn.setCellValueFactory(new PropertyValueFactory<>("availableSeats"));
 
+        TableColumn<Screening, Void> seatStatesButtonColumn = new TableColumn<>("Seat States");
+        
+        seatStatesButtonColumn.setCellFactory(param -> new TableCell<Screening, Void>() {
+        private final Button showSeatStatesButton = new Button("Show Seat States");
+        {
+            showSeatStatesButton.setOnAction(event -> {
+                Screening screening = getTableView().getItems().get(getIndex());
+                List<Seat> seats = screeningFileReader.readSeatStates("src/cinema/SeatStatesScreening.txt");
+                SeatStatesScene seatStatesScene = new SeatStatesScene(seats);
+                App.primaryStage.setScene(seatStatesScene);
+            });
+        }
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(showSeatStatesButton);
+                }
+            }
+
+        });
+
+        
+        
+    
         screeningTableView.setItems(FXCollections.observableArrayList(screenings));
 
 
@@ -78,6 +113,7 @@ public class ScreeningSceneCreator extends SceneCreator implements EventHandler<
         screeningTableView.getColumns().add(dateColumn);
         screeningTableView.getColumns().add(timeOfScreeningColumn);
         screeningTableView.getColumns().add(availableSeatsColumn);
+        screeningTableView.getColumns().add(seatStatesButtonColumn);
 
         Scene scene = new Scene(rootGridPane, width, height);
         return scene;
@@ -91,10 +127,6 @@ public class ScreeningSceneCreator extends SceneCreator implements EventHandler<
             if (event.getSource() == backButton) {
                 App.primaryStage.setScene(App.mainScene);
                 App.primaryStage.setTitle("Main Menu");
-            }else if (event.getSource() == showSeatStatesButton){
-                List<Seat> seats = screeningFileReader.readScreenings("src/cinema/Screenings.txt", "src/cinema/SeatStates.txt");
-                SeatStatesScene seatStatesScene = new SeatStatesScene(seats);
-                App.primaryStage.setScene(seatStatesScene);
             }
 
         }
