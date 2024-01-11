@@ -1,5 +1,6 @@
 package cinema;
 
+import java.io.IOException;
 import java.util.List;
 
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -16,10 +17,19 @@ import javafx.scene.layout.Priority;
 
 public class ScreeningSceneCreator extends SceneCreator implements EventHandler<MouseEvent>{
 
+    ScreeningFileReader screeningFileReader = new ScreeningFileReader();
+    List<Screening> screenings = null;
+    try {
+        screenings = screeningFileReader.readScreenings("src/cinema/Screening.txt", "src/cinema/SeatStatesScreening.txt");
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+
     GridPane rootGridPane;
     Button backButton;
+    Button showSeatStatesButton;
     TableView<Screening> screeningTableView;
-    private List<Screening> screenings;
+   
 
 
     public ScreeningSceneCreator(double width, double height, List<Screening> screenings) {
@@ -29,6 +39,8 @@ public class ScreeningSceneCreator extends SceneCreator implements EventHandler<
         this.rootGridPane = new GridPane();
         screeningTableView = new TableView<>();
         backButton = new Button("Back");
+        showSeatStatesButton = new Button("Show Seat States");
+
 
         rootGridPane.setVgap(10);
         rootGridPane.setHgap(10);
@@ -38,6 +50,7 @@ public class ScreeningSceneCreator extends SceneCreator implements EventHandler<
         rootGridPane.add(backButton, 0, 1);
 
         backButton.setOnMouseClicked(this);
+        showSeatStatesButton.setOnMouseClicked(this);
     }
 
     @Override
@@ -78,6 +91,10 @@ public class ScreeningSceneCreator extends SceneCreator implements EventHandler<
             if (event.getSource() == backButton) {
                 App.primaryStage.setScene(App.mainScene);
                 App.primaryStage.setTitle("Main Menu");
+            }else if (event.getSource() == showSeatStatesButton){
+                List<Seat> seats = screeningFileReader.readScreenings("src/cinema/Screenings.txt", "src/cinema/SeatStates.txt");
+                SeatStatesScene seatStatesScene = new SeatStatesScene(seats);
+                App.primaryStage.setScene(seatStatesScene);
             }
 
         }
