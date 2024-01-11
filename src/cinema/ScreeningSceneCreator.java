@@ -28,6 +28,7 @@ public class ScreeningSceneCreator extends SceneCreator implements EventHandler<
     }
     GridPane rootGridPane;
     Button backButton;
+    Button bookSeat;
     Button showSeat;
    
     
@@ -43,6 +44,7 @@ public class ScreeningSceneCreator extends SceneCreator implements EventHandler<
 
         this.rootGridPane = new GridPane();
         screeningTableView = new TableView<>();
+        bookSeat = new Button("Book Seat");
         backButton = new Button("Back");
         //showSeatStatesButton = new Button("Show Seat States");
 
@@ -53,6 +55,7 @@ public class ScreeningSceneCreator extends SceneCreator implements EventHandler<
         screeningTableView.setPrefSize(600, 600);
        
         rootGridPane.add(backButton, 0, 1);
+        rootGridPane.add(bookSeat, 0, 2);
         //rootGridPane.add(showSeatStatesButton, 1, 1);
 
         backButton.setOnMouseClicked(this);
