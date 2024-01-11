@@ -50,7 +50,7 @@ public class ScreeningSceneCreator extends SceneCreator implements EventHandler<
         rootGridPane.setVgap(10);
         rootGridPane.setHgap(10);
         rootGridPane.add(screeningTableView, 0, 0);
-        screeningTableView.setPrefSize(500, 600);
+        screeningTableView.setPrefSize(600, 600);
        
         rootGridPane.add(backButton, 0, 1);
         //rootGridPane.add(showSeatStatesButton, 1, 1);
