@@ -25,7 +25,7 @@ public class Movie {
     public void setUniqueId(String uniqueId) {
         this.uniqueId = uniqueId;
     }
-
+  
     public String getTitle() {
         return title;
     }

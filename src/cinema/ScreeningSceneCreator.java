@@ -1,30 +1,54 @@
 package cinema;
 
+import java.util.List;
+
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 
 public class ScreeningSceneCreator extends SceneCreator implements EventHandler<MouseEvent>{
 
-    private TableView<Screening> screeningTableView;
+    GridPane rootGridPane;
+    Button backButton;
+    TableView<Screening> screeningTableView;
+    private List<Screening> screenings;
 
-    public ScreeningSceneCreator(double width, double height) {
+
+    public ScreeningSceneCreator(double width, double height, List<Screening> screenings) {
         super(width, height);
+        this.screenings = screenings;
+
+        this.rootGridPane = new GridPane();
         screeningTableView = new TableView<>();
+        backButton = new Button("Back");
+
+        rootGridPane.setVgap(10);
+        rootGridPane.setHgap(10);
+        rootGridPane.add(screeningTableView, 0, 0);
+        screeningTableView.setPrefSize(500, 600);
+       
+        rootGridPane.add(backButton, 0, 1);
+
+        backButton.setOnMouseClicked(this);
     }
 
     @Override
         Scene createScene() {
         // define the table columns
         TableColumn<Screening, String> movieTitleColumn = new TableColumn<>("Movie Title");
-        //i had done the mistake of using movie id instead of title as properties of a screening
-        //so i use cellData.getValue() to get the screening object of the row and then getMovieTitleById() to get the title of the movie
-        // the ReadOnlyStringWrapper wraps the movie in a observable value so that the table can observe it 
-        movieTitleColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getMovieTitleById()));
+        movieTitleColumn.setCellValueFactory(new PropertyValueFactory<>("movieTitle"));
+
+
+        TableColumn<Screening, String> dateColumn = new TableColumn<>("Date");
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
 
         TableColumn<Screening, String> timeOfScreeningColumn = new TableColumn<>("Time Of Screening");
         timeOfScreeningColumn.setCellValueFactory(new PropertyValueFactory<>("timeOfScreening"));
@@ -32,14 +56,17 @@ public class ScreeningSceneCreator extends SceneCreator implements EventHandler<
         TableColumn<Screening, Integer> availableSeatsColumn = new TableColumn<>("Available Seats");
         availableSeatsColumn.setCellValueFactory(new PropertyValueFactory<>("availableSeats"));
 
+        screeningTableView.setItems(FXCollections.observableArrayList(screenings));
+
 
         //add columns to the table
 
         screeningTableView.getColumns().add(movieTitleColumn);
+        screeningTableView.getColumns().add(dateColumn);
         screeningTableView.getColumns().add(timeOfScreeningColumn);
         screeningTableView.getColumns().add(availableSeatsColumn);
 
-        Scene scene = new Scene(screeningTableView, width, height);
+        Scene scene = new Scene(rootGridPane, width, height);
         return scene;
 
         }
@@ -48,6 +75,10 @@ public class ScreeningSceneCreator extends SceneCreator implements EventHandler<
         
         
         public void handle(MouseEvent event) {
+            if (event.getSource() == backButton) {
+                App.primaryStage.setScene(App.mainScene);
+                App.primaryStage.setTitle("Main Menu");
+            }
 
         }
     

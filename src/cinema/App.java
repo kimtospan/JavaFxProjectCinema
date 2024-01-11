@@ -48,7 +48,7 @@ public class App extends Application {
         SceneCreator mainSceneCreator = new MainSceneCreator(650, 300);
         mainScene = mainSceneCreator.createScene();
 
-        SceneCreator ScreeningSceneCreator = new ScreeningSceneCreator(650, 300); 
+        SceneCreator ScreeningSceneCreator = new ScreeningSceneCreator(650, 300 , screenings); 
         ScreeningScene = ScreeningSceneCreator.createScene();
        
         SceneCreator PartySceneCreator = new PartySceneCreator(650, 300);
@@ -194,7 +194,7 @@ public class App extends Application {
             // Create a VBox layout for the planned screening list
             VBox layout = new VBox(10);
             for (Screening screening : screenings) {
-                Label screeningLabel = new Label(screening.getEventId() + " " + screening.getMovieId() + " "
+                Label screeningLabel = new Label(screening.getEventId() + " " + " "
                         + screening.getHallId() + " " + screening.getDate() + " " + screening.getTimeOfScreening() + " "
                         + screening.getFullSeats() + " " + screening.getReservedSeatsNumber());
                 layout.getChildren().add(screeningLabel);

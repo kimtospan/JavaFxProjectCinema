@@ -11,7 +11,8 @@ import java.util.List;
 //use a hashmap to save the seats
 public class Screening extends Event {
     private String eventId;
-    private String movieId;
+    
+    private String movieTitle;
     private String hallId;
     private String date;   
     private String timeOfScreening;
@@ -24,9 +25,10 @@ public class Screening extends Event {
 
     
     
-    public Screening(String eventId, String movieId, String hallId, String date, String timeOfScreening, byte fullSeats, byte reservedSeatsNumber, List<Seat> reservedSeats) {
+    public Screening(String eventId,String movieTitle, String hallId, String date, String timeOfScreening, byte fullSeats, byte reservedSeatsNumber, List<Seat> reservedSeats) {
         this.eventId = eventId;
-        this.movieId = movieId;
+        
+        this.movieTitle = movieTitle;
         this.hallId = hallId;
         this.date = date;
         this.timeOfScreening = timeOfScreening;
@@ -49,17 +51,18 @@ public class Screening extends Event {
     public byte getAvailableSeats() {
         return availableSeats;
     }
-    
+
+    public String getMovieTitle() {
+        return movieTitle;
+    }
+
+   
 
 
     public List<Seat> getReservedSeats(String eventId) {
         return this.reservedSeatsMap.get(eventId);
     }
-    //this will use the id to activate the getTitleFromId method from the MovieFileReader class
-    public String getMovieTitleById(){
-        return MovieFileReader.getTitleFromId(movieId);
-    }
-
+  
     
 
     // Getter and Setter methods for eventId
@@ -71,14 +74,9 @@ public class Screening extends Event {
         this.eventId = eventId;
     }
 
-    // Getter and Setter methods for movieId
-    public String getMovieId() {
-        return movieId;
-    }
+    
 
-    public void setMovieId(String movieId) {
-        this.movieId = movieId;
-    }
+    
 
     // Getter and Setter methods for hallId
     public String getHallId() {

@@ -27,7 +27,7 @@ public class ScreeningFileReader {
                 String[] seatStatesData = seatStatesLine.split(DELIMITER);
 
                 String eventId = screeningsData[0];
-                String movieId = screeningsData[1];
+                String movieTitle = screeningsData[1];
                 String hallId = screeningsData[2];
                 String date = screeningsData[3];
                 String timeOfScreening = screeningsData[4];
@@ -58,8 +58,8 @@ public class ScreeningFileReader {
                     }
                     }
                 }
-
-                screenings.add(new Screening(eventId, movieId, hallId, date, timeOfScreening, fullSeats, reservedSeatsNumber, reservedSeats));
+                
+                screenings.add(new Screening(eventId,movieTitle, hallId, date, timeOfScreening, fullSeats, reservedSeatsNumber, reservedSeats));
             }
         }
 

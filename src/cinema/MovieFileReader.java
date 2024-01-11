@@ -50,12 +50,5 @@ public class MovieFileReader {
     }
 
     
-    public static String getTitleFromId(String id){
-        for (Movie movie : movies) {
-            if (movie.getUniqueId().equals(id)) {
-                return movie.getTitle();
-            }
-        }
-        return null;
-    }
+    
 }
