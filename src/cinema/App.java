@@ -51,7 +51,7 @@ public class App extends Application {
         SceneCreator ScreeningSceneCreator = new ScreeningSceneCreator(650, 300 , screenings); 
         ScreeningScene = ScreeningSceneCreator.createScene();
        
-        SceneCreator PartySceneCreator = new PartySceneCreator(650, 300);
+        SceneCreator PartySceneCreator = new PartySceneCreator(650, 300, parties);
         PartyScene = PartySceneCreator.createScene();
 
         primaryStage.setTitle("Cinema Management System");

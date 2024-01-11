@@ -1,6 +1,4 @@
 package cinema;
-import cinema.Movie;
-import cinema.Hall;
 
 public abstract class Event {
 

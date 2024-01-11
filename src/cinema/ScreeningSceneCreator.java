@@ -3,7 +3,6 @@ package cinema;
 import java.io.IOException;
 import java.util.List;
 
-import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -14,7 +13,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
 
 public class ScreeningSceneCreator extends SceneCreator implements EventHandler<MouseEvent>{
 

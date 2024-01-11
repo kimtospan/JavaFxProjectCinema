@@ -1,5 +1,4 @@
 package cinema;
-import cinema.Seat;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.HashMap;
