@@ -28,6 +28,7 @@ public class PartySceneCreator extends SceneCreator implements EventHandler<Mous
 
     GridPane rootGridPane;
     Button backButton;
+    Button bookParty;
     TableView<Party> partyTableView;
 
     public PartySceneCreator(double width, double height, List<Party> parties) {
@@ -37,6 +38,7 @@ public class PartySceneCreator extends SceneCreator implements EventHandler<Mous
         this.rootGridPane = new GridPane();
         partyTableView = new TableView<>();
         backButton = new Button("Back");
+        bookParty = new Button("Book Party");
 
         rootGridPane.setVgap(10);
         rootGridPane.setHgap(10);
@@ -44,6 +46,7 @@ public class PartySceneCreator extends SceneCreator implements EventHandler<Mous
         partyTableView.setPrefSize(500, 600);
        
         rootGridPane.add(backButton, 0, 1);
+        rootGridPane.add(bookParty, 0, 2);
 
         backButton.setOnMouseClicked(this);
     }

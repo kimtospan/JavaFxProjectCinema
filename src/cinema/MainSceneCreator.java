@@ -1,6 +1,7 @@
 package cinema;
 
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.FlowPane;
@@ -15,6 +16,8 @@ public class MainSceneCreator extends SceneCreator implements EventHandler<Mouse
         super(width, height);
 
         rootflowPane = new FlowPane();
+        rootflowPane.setAlignment(Pos.CENTER);
+        rootflowPane.setVgap(10);
 
         handleScreeningsbutton = new Button("Handle Screenings");
         handlePartiesButton = new Button("Handle Parties");
